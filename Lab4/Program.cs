@@ -17,6 +17,7 @@ class Program
                 3. Task 2: Palindrome/Reverse Words (StringBuilder version, no punctuation)
                 4. Task 2: Palindrome/Reverse Words (string version, with punctuation)
                 5. Task 2: Palindrome/Reverse Words (StringBuilder version, with punctuation)
+                6. Task 15: Check if all parenthesis are closed
                 0. Exit
             """);
 
@@ -25,7 +26,7 @@ class Program
             switch (Console.ReadLine()!)
             {
             case "1":
-                RunTask1();
+                Task1_CheckPerformance();
                 break;
             case "2":
                 Task2_StringNoPunctuation();
@@ -38,6 +39,9 @@ class Program
                 break;
             case "5":
                 Task2_StringBuilderWithPunctuation();
+                break;
+            case "6":
+                Task15();
                 break;
             case "0":
                 Console.WriteLine("Exiting program...");
@@ -55,7 +59,7 @@ class Program
 
     record Task1Result(string MethodName, TimeSpan ExecutionTime, string Description);
 
-    static void RunTask1()
+    static void Task1_CheckPerformance()
     {
         Console.Write("Enter a positive integer n: ");
 
@@ -362,5 +366,45 @@ class Program
         string result = ProcessWordsUsingStringBuilder(input: Console.ReadLine()!, ignorePunctuation: false);
 
         Console.WriteLine($"Result (StringBuilder, with punctuation): {result}");
+    }
+
+    //
+    // Task 15: Check if all parenthesis are closed.
+    //
+
+    static void Task15()
+    {
+        Console.Write("\nInput something: ");
+
+        var input = Console.ReadLine()!;
+        var isValidInput = Task15_Impl(input);
+
+        Console.WriteLine(
+            isValidInput
+                ? "\nInput is valid\n"
+                : "\nInput is invalid\n"
+        );
+    }
+
+    static bool Task15_Impl(string input)
+    {
+        int parensCount = 0;
+
+        foreach (char ch in input)
+        {
+            if (ch == '(')
+            {
+                ++parensCount;
+            }
+            else if (ch == ')')
+            {
+                if (--parensCount < 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return parensCount == 0;
     }
 }
