@@ -72,8 +72,8 @@ class Program
 
         Console.WriteLine($"\n# Generating sequence for n = {n}\n");
 
-        var results = new List<Task1Result>();
-        var stopwatch = new Stopwatch();
+        List<Task1Result> results = [];
+        Stopwatch stopwatch = new();
 
         // Method 1
         stopwatch.Restart();
@@ -122,9 +122,12 @@ class Program
         Console.WriteLine(separator);
 
         // Rows.
-        foreach (var result in results)
+        foreach (Task1Result result in results)
         {
-            Console.WriteLine($"| {result.MethodName.PadRight(nameWidth)}| {FormatTimeSpan(result.ExecutionTime).PadRight(timeWidth)}| {result.Description.PadRight(descWidth)}|");
+            Console.WriteLine(
+                $"| {result.MethodName.PadRight(nameWidth)}" +
+                $"| {FormatTimeSpan(result.ExecutionTime).PadRight(timeWidth)}" +
+                $"| {result.Description.PadRight(descWidth)}|");
         }
 
         Console.WriteLine(separator);
@@ -145,7 +148,7 @@ class Program
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(n, 1);
 
-        var buf = "1";
+        string buf = "1";
 
         for (int i = 2; i <= n; ++i)
         {
@@ -159,7 +162,7 @@ class Program
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(n, 1);
 
-        var buf = $"{n}";
+        string buf = $"{n}";
 
         for (int i = n - 1; i >= 1; --i)
         {
@@ -173,9 +176,9 @@ class Program
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(n, 1);
 
-        var buf = new StringBuilder("1");
+        StringBuilder buf = new("1");
 
-        for (int i = 2; i <= n; i++)
+        for (int i = 2; i <= n; ++i)
         {
             buf.Append(' ');
             buf.Append(i);
@@ -190,9 +193,9 @@ class Program
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(n, 1);
 
-        var buf = new StringBuilder($"{n}");
+        StringBuilder buf = new($"{n}");
 
-        for (int i = n - 1; i >= 1; i--)
+        for (int i = n - 1; i >= 1; --i)
         {
             buf.Insert(0, ' ');
             buf.Insert(0, i);
@@ -248,7 +251,7 @@ class Program
 
     static string FlipCase(string word)
     {
-        var buf = new StringBuilder(word.Length);
+        StringBuilder buf = new(word.Length);
 
         foreach (char c in word)
         {
@@ -283,13 +286,13 @@ class Program
 
         // Split into words, preserving multiple spaces if necessary
         // (though problem implies single spaces).
-        var words = input.Split(' ', StringSplitOptions.None); // Use None to avoid removing empty entries if needed
-        var result = "";
+        string[] words = input.Split(' ', StringSplitOptions.None); // Use None to avoid removing empty entries if needed
+        string result = "";
 
         for (int i = 0; i < words.Length; ++i)
         {
-            var word = words[i];
-            var processedWord = string.IsNullOrEmpty(word)
+            string word = words[i];
+            string processedWord = string.IsNullOrEmpty(word)
                 ? word
                 : IsPalindrome(word, ignorePunctuation)
                     ? FlipCase(word)
@@ -311,13 +314,13 @@ class Program
 
         // Split into words, preserving multiple spaces if necessary
         // (though problem implies single spaces).
-        var words = input.Split(' ', StringSplitOptions.None); // Use None to avoid removing empty entries if needed
-        var result = new StringBuilder(words.Length);
+        string[] words = input.Split(' ', StringSplitOptions.None); // Use None to avoid removing empty entries if needed
+        StringBuilder result = new(words.Length);
 
         for (int i = 0; i < words.Length; ++i)
         {
-            var word = words[i];
-            var processedWord = string.IsNullOrEmpty(word)
+            string word = words[i];
+            string processedWord = string.IsNullOrEmpty(word)
                 ? word
                 : IsPalindrome(word, ignorePunctuation)
                     ? FlipCase(word)
@@ -376,8 +379,8 @@ class Program
     {
         Console.Write("\nInput something: ");
 
-        var input = Console.ReadLine()!;
-        var isValidInput = Task15_Impl(input);
+        string input = Console.ReadLine()!;
+        bool isValidInput = Task15_Impl(input);
 
         Console.WriteLine(
             isValidInput
